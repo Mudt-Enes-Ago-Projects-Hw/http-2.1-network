@@ -33,14 +33,6 @@ Built with SQLAlchemy ORM, environment-based config, and clean project structure
 
 ## Endpoints
 
-| Category | Method | Route       | Description                           | Body                                       | Returns                                                                                                      |
-| -------- | ------ | ----------- | ------------------------------------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| Auth     | POST   | `/signup`   | Registers a new user                  | `{ "username": "...", "password": "..." }` | Success/failure message                                                                                      |
-| Auth     | POST   | `/login`    | Logs user in and sets JWT cookie      | `{ "username": "...", "password": "..." }` | Success/failure, JWT as HttpOnly cookie                                                                      |
-| Blog     | POST   | `/blog/new` | Create a new blog post (requires JWT) | `{ "content": "Your blog content here." }` | Success/failure message                                                                                      |
-| Blog     | GET    | `/blogs`    | Returns all blog posts (requires JWT) | *None*                                     | `{ "blogs": [ { "id": int, "author": "username", "content": "post content", "created_at": "timestamp" } ] }` |
-
-
 ### Auth
 
 - **POST `/signup`**
