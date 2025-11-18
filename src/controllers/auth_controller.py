@@ -27,10 +27,13 @@ def signup():
     data = request.get_json()
     username = data.get('username')
     password = data.get('password')
+
     if not username or not password:
         return jsonify({'message': 'Username and password required'}), 400
+    
     if User.query.filter_by(username=username).first():
         return jsonify({'message': 'User already exists'}), 400
+    
     hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
     user = User(username=username, password=hashed)
     db.session.add(user)
@@ -42,9 +45,11 @@ def login():
     data = request.get_json()
     username = data.get('username')
     password = data.get('password')
+
     user = User.query.filter_by(username=username).first()
     if not user or not bcrypt.checkpw(password.encode('utf-8'), user.password):
         return jsonify({'message': 'Invalid username or password'}), 401
+    
     token = encode_jwt(user.id)
     resp = make_response({'message': 'Login successful'})
     resp.set_cookie('jwt', token, httponly=True, samesite='Strict')
@@ -60,6 +65,7 @@ def auth_required(func):
         return func(*args, **kwargs)
     wrapper.__name__ = func.__name__
     return wrapper
+
 
 @auth_bp.route('/logout', methods=['POST'])
 def logout():

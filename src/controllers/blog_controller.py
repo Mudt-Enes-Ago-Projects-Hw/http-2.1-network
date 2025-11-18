@@ -18,6 +18,8 @@ def new_blog():
     db.session.commit()
     return jsonify({'message': 'Blog post created'}), 201
 
+
+
 @blog_bp.route('/blogs', methods=['GET'])
 @auth_required
 def blogs():
